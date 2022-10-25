@@ -8,11 +8,12 @@ export default function AddPlayer() {
   const [newPlayerTeam, setNewPlayerTeam] = useState();
   const [newPlayerAge, setNewPlayerAge] = useState();
   const [newPlayerInfo, setNewPlayerInfo] = useState();
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(newPlayerInfo);
-  });
+  // useEffect(() => {
+  //   console.log(newPlayerInfo);
+  // });
 
   useEffect(() => {
     setNewPlayerInfo({
@@ -28,7 +29,7 @@ export default function AddPlayer() {
     axios
       .post("http://localhost:8082/api/players", newPlayerInfo)
       .then((response) => {
-        console.log(response);
+        setMessage(response.data.msg);
         setNewPlayerInfo([]);
       })
       .catch((error) => console.log(error));
@@ -74,7 +75,16 @@ export default function AddPlayer() {
             onChange={(e) => setNewPlayerAge(e.target.value)}
           />
         </div>
-        <button>Add Player</button>
+        <div>{message ? <>{message + " " + newPlayerName}</> : null}</div>
+        <button type="submit">Add Player</button>
+        <button
+          type="reset"
+          onClick={() => {
+            setMessage("");
+          }}
+        >
+          reset
+        </button>
       </form>
       <button
         onClick={() => {

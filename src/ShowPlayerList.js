@@ -26,7 +26,16 @@ export default function ShowPlayerList() {
     <>
       {playerList
         ? playerList.map((player) => {
-            return <div>{player.name}</div>;
+            return (
+              <div
+                onClick={() => {
+                  navigate(`/player/${player._id}`);
+                }}
+                className=""
+              >
+                {player.name}
+              </div>
+            );
           })
         : null}
       <button
