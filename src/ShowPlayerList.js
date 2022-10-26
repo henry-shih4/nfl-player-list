@@ -6,15 +6,15 @@ export default function ShowPlayerList() {
   const [playerList, setPlayerList] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(playerList);
-  });
+  // useEffect(() => {
+  //   console.log(playerList);
+  // });
 
   useEffect(() => {
     axios
       .get("http://localhost:8082/api/players")
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setPlayerList(response.data);
       })
       .catch((error) => {
