@@ -8,6 +8,7 @@ export default function AddPlayer() {
   const [newPlayerTeam, setNewPlayerTeam] = useState();
   const [newPlayerAge, setNewPlayerAge] = useState();
   const [newPlayerInfo, setNewPlayerInfo] = useState();
+  // const [addedPlayerName, setAddedPlayerName] = useState();
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
@@ -31,24 +32,31 @@ export default function AddPlayer() {
       .then((response) => {
         setMessage(response.data.msg);
         setNewPlayerInfo([]);
+        setNewPlayerName("");
+        setNewPlayerPosition("");
+        setNewPlayerTeam("");
+        setNewPlayerAge("");
       })
       .catch((error) => console.log(error));
   }
 
   return (
     <>
-      <form onSubmit={handleFormSubmit}>
-        <div>
+      <form className="p-2" onSubmit={handleFormSubmit}>
+        <div className="p-2">
           <label for="name">Name: </label>
           <input
             required
             type="text"
             id="name"
             name="name"
-            onChange={(e) => setNewPlayerName(e.target.value)}
+            onChange={(e) => {
+              setNewPlayerName(e.target.value);
+              // setAddedPlayerName(e.target.value);
+            }}
           />
         </div>
-        <div>
+        <div className="p-2">
           <label for="position">Position: </label>
           <input
             type="text"
@@ -57,7 +65,7 @@ export default function AddPlayer() {
             onChange={(e) => setNewPlayerPosition(e.target.value)}
           />
         </div>
-        <div>
+        <div className="p-2">
           <label for="team">Team: </label>
           <input
             type="text"
@@ -66,7 +74,7 @@ export default function AddPlayer() {
             onChange={(e) => setNewPlayerTeam(e.target.value)}
           />
         </div>
-        <div>
+        <div className="p-2">
           <label for="age">Age: </label>
           <input
             type="text"
@@ -76,8 +84,14 @@ export default function AddPlayer() {
           />
         </div>
         <div>{message ? <>{message + " " + newPlayerName}</> : null}</div>
-        <button type="submit">Add Player</button>
         <button
+          className="mr-4 p-1 border-black border-2 border-solid rounded-md"
+          type="submit"
+        >
+          Add Player
+        </button>
+        <button
+          className="p-1 border-black border-2 border-solid rounded-md"
           type="reset"
           onClick={() => {
             setMessage("");
