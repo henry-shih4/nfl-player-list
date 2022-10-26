@@ -11,10 +11,10 @@ export default function Player() {
   const [change, setChange] = useState(false);
   const [updated, setUpdated] = useState(false);
 
-  useEffect(() => {
-    console.log(tempPlayer);
-    console.log(change);
-  });
+  // useEffect(() => {
+  //   console.log(tempPlayer);
+  //   console.log(updated);
+  // });
 
   useEffect(() => {
     axios
@@ -48,13 +48,13 @@ export default function Player() {
         .then((res) => {
           console.log(res.data.msg);
           navigate(`/player/${params.id}`);
+          setUpdated(!updated);
         })
         .catch((err) => {
           console.log("Error in UpdateBookInfo!");
         });
       setInput(false);
       setChange(false);
-      setUpdated(!updated);
     } else {
       console.log("no changes");
     }
@@ -113,6 +113,21 @@ export default function Player() {
                     setChange(true);
                   }}
                 />
+                <div className="flex items-center">
+                  <button
+                    className="w-[60px] m-2 p-1 border-black border-2 border-solid rounded-md"
+                    onClick={handlePlayerSave}
+                  >
+                    save
+                  </button>
+
+                  <button
+                    className="w-[60px] m-2 p-1 border-black border-2 border-solid rounded-md"
+                    onClick={handlePlayerCancel}
+                  >
+                    cancel
+                  </button>
+                </div>
               </div>
             </>
           ) : (
@@ -125,7 +140,7 @@ export default function Player() {
           )}
         </div>
       ) : null}
-      <div>
+      <div className="m-2 flex items-center">
         <button
           className="w-[60px] m-2 p-1 border-black border-2 border-solid rounded-md"
           onClick={() => {
@@ -135,22 +150,9 @@ export default function Player() {
           {" "}
           edit
         </button>
+
         <button
-          className="w-[60px] p-1 border-black border-2 border-solid rounded-md"
-          onClick={handlePlayerSave}
-        >
-          save
-        </button>
-      </div>
-      <div>
-        <button
-          className="w-[60px] m-2 p-1 border-black border-2 border-solid rounded-md"
-          onClick={handlePlayerCancel}
-        >
-          cancel
-        </button>
-        <button
-          className="w-[60px] p-1 border-black border-2 border-solid rounded-md"
+          className="w-[60px] p-1 m-2 border-black border-2 border-solid rounded-md"
           onClick={handlePlayerDelete}
         >
           delete
