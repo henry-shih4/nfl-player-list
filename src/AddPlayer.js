@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function AddPlayer() {
+  const url = 'https://nfl-players-server.herokuapp.com/api/players/'
   const [newPlayerName, setNewPlayerName] = useState();
   const [newPlayerPosition, setNewPlayerPosition] = useState();
   const [newPlayerTeam, setNewPlayerTeam] = useState();
@@ -12,10 +13,6 @@ export default function AddPlayer() {
   const [message, setMessage] = useState("");
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(addedPlayerName);
-  });
 
   useEffect(() => {
     setNewPlayerInfo({
@@ -29,7 +26,7 @@ export default function AddPlayer() {
   function handleFormSubmit(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:8082/api/players", newPlayerInfo)
+      .post(url, newPlayerInfo)
       .then((response) => {
         setMessage(response.data.msg);
         setNewPlayerInfo([]);

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Player() {
+  const url = 'https://nfl-players-server.herokuapp.com/api/players/'
   const params = useParams();
   const [playerInfo, setPlayerInfo] = useState([]);
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function Player() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8082/api/players/${params.id}`)
+      .get(url + params.id)
       .then((response) => {
         console.log(response.data);
         setPlayerInfo(response.data);
@@ -31,7 +32,7 @@ export default function Player() {
 
   function handlePlayerDelete() {
     axios
-      .delete("http://localhost:8082/api/players/" + params.id)
+      .delete(url + params.id)
       .then((res) => {
         console.log(res.data.msg);
         navigate("/");
@@ -44,14 +45,14 @@ export default function Player() {
   function handlePlayerSave() {
     if (change) {
       axios
-        .put("http://localhost:8082/api/players/" + params.id, tempPlayer)
+        .put(url + params.id, tempPlayer)
         .then((res) => {
           console.log(res.data.msg);
           navigate(`/player/${params.id}`);
           setUpdated(!updated);
         })
         .catch((err) => {
-          console.log("Error in UpdateBookInfo!");
+          console.log("Error with updating player info!");
         });
       setInput(false);
       setChange(false);

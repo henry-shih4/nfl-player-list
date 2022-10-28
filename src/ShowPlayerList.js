@@ -12,7 +12,7 @@ export default function ShowPlayerList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8082/api/players")
+      .get("https://nfl-players-server.herokuapp.com/api/players")
       .then((response) => {
         // console.log(response);
         setPlayerList(response.data);
@@ -30,6 +30,7 @@ export default function ShowPlayerList() {
           ? playerList.map((player) => {
               return (
                 <div
+                key={player._id}
                   onClick={() => {
                     navigate(`/player/${player._id}`);
                   }}
