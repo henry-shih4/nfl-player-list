@@ -5,33 +5,44 @@ export default function Register() {
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
 
-  useEffect(() => {
+  function handleFormSubmit(e) {
+    e.preventDefault();
     console.log(username, password, email);
-  });
-
-function handleFormSubmit(){
-setUsername()
-}
+  }
 
   return (
     <>
       <form onSubmit={handleFormSubmit} className="flex flex-col">
         <label for="user">Username: </label>
-        <input type="text" id="user" value={username} placeholder="username" />
+        <input
+          type="text"
+          id="user"
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+          placeholder="username"
+        />
 
         <label for="password">Password: </label>
-        <input type="password" id="password" value={password} />
+        <input
+          type="password"
+          id="password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
 
         <label for="email">Email: </label>
         <input
           type="email"
           id="email"
           placeholder="henry@gmail.com"
-          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
         />
+        <button>Register</button>
       </form>
-
-      <button>Register</button>
     </>
   );
 }
