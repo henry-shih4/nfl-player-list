@@ -1,19 +1,37 @@
-export default function Register(){
-    return(
-        <>
-        
-        <form className='flex flex-col'>
-        <label for='user'>Username: </label>
-        <input type='text' id='user' placeholder="username" />
+import { useState, useEffect } from "react";
 
-        <label for='password'>Password: </label>
-        <input type='password' id='password' />
+export default function Register() {
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [email, setEmail] = useState();
 
-        <label for='email'>Email: </label>
-        <input type='email' id='email' placeholder="henry@gmail.com" />
-        </form>
+  useEffect(() => {
+    console.log(username, password, email);
+  });
 
-        <button>Register</button>
-        </>
-    )
+function handleFormSubmit(){
+setUsername()
+}
+
+  return (
+    <>
+      <form onSubmit={handleFormSubmit} className="flex flex-col">
+        <label for="user">Username: </label>
+        <input type="text" id="user" value={username} placeholder="username" />
+
+        <label for="password">Password: </label>
+        <input type="password" id="password" value={password} />
+
+        <label for="email">Email: </label>
+        <input
+          type="email"
+          id="email"
+          placeholder="henry@gmail.com"
+          value={email}
+        />
+      </form>
+
+      <button>Register</button>
+    </>
+  );
 }
