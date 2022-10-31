@@ -6,7 +6,7 @@ export default function Register() {
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
   const [newUser, setNewUser] = useState();
-  const url = "https://nfl-players-server.herokuapp.com/api/users/";
+  const url = "https://nfl-players-server.herokuapp.com/users/";
 
   useEffect(() => {
     setNewUser({

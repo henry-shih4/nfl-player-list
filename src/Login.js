@@ -2,12 +2,14 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function Login() {
+export default function Login(props) {
   const navigate = useNavigate();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [user, setUser] = useState();
-  const url = "https://nfl-players-server.herokuapp.com/api/users/login";
+  let { handleToken } = props;
+
+  const url = "https://nfl-players-server.herokuapp.com/users/login";
 
   useEffect(() => {
     setUser({
@@ -21,10 +23,12 @@ export default function Login() {
     axios
       .post(url, user)
       .then((response) => {
-        if (response.data === "success") {
+        if (response.data.message === "Login Successful") {
+          console.log(response);
+          handleToken(response.data.token);
           console.log("logged in");
           navigate("/");
-        } else if (response.data === "not allowed") {
+        } else {
           console.log("invalid credentials");
         }
       })

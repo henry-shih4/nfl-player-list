@@ -2,25 +2,27 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function ShowPlayerList() {
+export default function ShowPlayerList(props) {
   const [playerList, setPlayerList] = useState([]);
   const navigate = useNavigate();
+  const { token } = props;
 
-  // useEffect(() => {
-  //   console.log(playerList);
-  // });
+  useEffect(() => {
+    console.log(token);
+  });
 
   useEffect(() => {
     axios
-      .get("https://nfl-players-server.herokuapp.com/api/players")
+      .get("https://nfl-players-server.herokuapp.com/api/players", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
-        // console.log(response);
         setPlayerList(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [token]);
 
   return (
     <>
@@ -30,7 +32,7 @@ export default function ShowPlayerList() {
           ? playerList.map((player) => {
               return (
                 <div
-                key={player._id}
+                  key={player._id}
                   onClick={() => {
                     navigate(`/player/${player._id}`);
                   }}
