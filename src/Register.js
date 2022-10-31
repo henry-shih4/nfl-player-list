@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
   const [newUser, setNewUser] = useState();
+  const navigate = useNavigate();
   const url = "https://nfl-players-server.herokuapp.com/users/";
 
   useEffect(() => {
@@ -35,6 +37,7 @@ export default function Register() {
 
   return (
     <>
+      <div>Registration</div>
       <form onSubmit={handleFormSubmit} className="flex flex-col">
         <label for="user">Username: </label>
         <input
@@ -69,6 +72,7 @@ export default function Register() {
         />
         <button>Register</button>
       </form>
+      <button onClick={() => navigate("/login")}>Login</button>
     </>
   );
 }

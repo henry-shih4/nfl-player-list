@@ -1,9 +1,11 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 export default function Player() {
-  const url = 'https://nfl-players-server.herokuapp.com/api/players/'
+  const url = "https://nfl-players-server.herokuapp.com/api/players/";
   const params = useParams();
   const [playerInfo, setPlayerInfo] = useState([]);
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ export default function Player() {
   const [tempPlayer, setTempPlayer] = useState();
   const [change, setChange] = useState(false);
   const [updated, setUpdated] = useState(false);
+  const token = cookies.get("TOKEN");
 
   // useEffect(() => {
   //   console.log(tempPlayer);
@@ -19,7 +22,9 @@ export default function Player() {
 
   useEffect(() => {
     axios
-      .get(url + params.id)
+      .get(url + params.id, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         console.log(response.data);
         setPlayerInfo(response.data);

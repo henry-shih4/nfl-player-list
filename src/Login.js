@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
-export default function Login(props) {
+export default function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [user, setUser] = useState();
-  let { handleToken } = props;
 
   const url = "https://nfl-players-server.herokuapp.com/users/login";
 
@@ -25,8 +26,10 @@ export default function Login(props) {
       .then((response) => {
         if (response.data.message === "Login Successful") {
           console.log(response);
-          handleToken(response.data.token);
           console.log("logged in");
+          cookies.set("TOKEN", response.data.token, {
+            path: "/",
+          });
           navigate("/");
         } else {
           console.log("invalid credentials");
@@ -37,6 +40,7 @@ export default function Login(props) {
 
   return (
     <>
+      <div>Login Page</div>
       <form onSubmit={handleFormSubmit} className="flex flex-col">
         <label for="user">Username: </label>
         <input

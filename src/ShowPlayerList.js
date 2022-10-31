@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
-export default function ShowPlayerList(props) {
+export default function ShowPlayerList() {
   const [playerList, setPlayerList] = useState([]);
   const navigate = useNavigate();
-  const { token } = props;
-
-  useEffect(() => {
-    console.log(token);
-  });
+  const token = cookies.get("TOKEN");
 
   useEffect(() => {
     axios
@@ -20,9 +18,9 @@ export default function ShowPlayerList(props) {
         setPlayerList(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
       });
-  }, [token]);
+  }, []);
 
   return (
     <>
@@ -52,6 +50,23 @@ export default function ShowPlayerList(props) {
           }}
         >
           Add a player
+        </button>
+      </div>
+      <div>
+        <button
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          Login to view
+        </button>
+        <button
+          onClick={() => {
+            cookies.remove("TOKEN", { path: "/" });
+            navigate("/login");
+          }}
+        >
+          Logout
         </button>
       </div>
     </>
