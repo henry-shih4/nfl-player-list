@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginContext.js";
 
 export default function Register() {
-  const [isLoggedIn, setIsLoggedIn] = useContext(LoginContext);
+  const [isLoggedIn] = useContext(LoginContext);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
@@ -34,7 +34,7 @@ export default function Register() {
           setEmail("");
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.message));
   }
 
   return (
@@ -80,7 +80,7 @@ export default function Register() {
             />
             <button>Register</button>
           </form>
-          <button onClick={() => navigate("/login")}>Login</button>
+          <button onClick={() => navigate("/login")}>Login Page</button>
         </>
       )}
     </>

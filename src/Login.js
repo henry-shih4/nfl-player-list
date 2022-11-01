@@ -34,6 +34,7 @@ export default function Login() {
           console.log("logged in");
           cookies.set("TOKEN", response.data.token, {
             path: "/",
+            maxAge: 300,
           });
           navigate("/");
           setIsLoggedIn(true);

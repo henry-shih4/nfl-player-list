@@ -10,7 +10,7 @@ function LoginProvider(props) {
   function changeLoggedIn(value) {
     setIsLoggedIn(value);
     if (value === false) {
-      cookies.remove("TOKEN", { path: "/" });
+      cookies.remove("TOKEN", { path: "/login" });
     }
   }
 

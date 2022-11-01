@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { LoginContext } from "./LoginContext";
 import axios from "axios";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 export default function AddPlayer() {
-  const url = 'https://nfl-players-server.herokuapp.com/api/players/'
+  const url = "https://nfl-players-server.herokuapp.com/api/players/";
   const [newPlayerName, setNewPlayerName] = useState();
   const [newPlayerPosition, setNewPlayerPosition] = useState();
   const [newPlayerTeam, setNewPlayerTeam] = useState();
@@ -12,7 +15,9 @@ export default function AddPlayer() {
   const [addedPlayerName, setAddedPlayerName] = useState();
   const [message, setMessage] = useState("");
   const [modal, setModal] = useState(false);
+  const [isLoggedIn] = useContext(LoginContext);
   const navigate = useNavigate();
+  const token = cookies.get("TOKEN");
 
   useEffect(() => {
     setNewPlayerInfo({
@@ -26,7 +31,9 @@ export default function AddPlayer() {
   function handleFormSubmit(e) {
     e.preventDefault();
     axios
-      .post(url, newPlayerInfo)
+      .post(url, newPlayerInfo, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         setMessage(response.data.msg);
         setNewPlayerInfo([]);
@@ -36,106 +43,123 @@ export default function AddPlayer() {
         setNewPlayerAge("");
         setModal(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.message));
   }
 
   return (
     <>
-      <form
-        className="p-2 flex flex-col justify-center items-center w-1/2"
-        onSubmit={handleFormSubmit}
-      >
-        <div className="p-2 flex flex-col">
-          <label for="name">Name: </label>
-          <input
-            required
-            className="pl-2 border-2 border-solid border-blue-300"
-            type="text"
-            id="name"
-            name="name"
-            value={newPlayerName}
-            onChange={(e) => {
-              setNewPlayerName(e.target.value);
-              setAddedPlayerName(e.target.value);
-            }}
-          />
-        </div>
-        <div className="p-2 flex flex-col">
-          <label for="position">Position: </label>
-          <input
-            className="pl-2 border-2 border-solid border-blue-300"
-            type="text"
-            id="position"
-            name="position"
-            value={newPlayerPosition}
-            onChange={(e) => setNewPlayerPosition(e.target.value)}
-          />
-        </div>
-        <div className="p-2 flex flex-col">
-          <label for="team">Team: </label>
-          <input
-            className="pl-2 border-2 border-solid border-blue-300"
-            type="text"
-            id="team"
-            name="team"
-            value={newPlayerTeam}
-            onChange={(e) => setNewPlayerTeam(e.target.value)}
-          />
-        </div>
-        <div className="p-2 flex flex-col">
-          <label for="age">Age: </label>
-          <input
-            className="pl-2 border-2 border-solid border-blue-300"
-            type="text"
-            id="age"
-            name="age"
-            value={newPlayerAge}
-            onChange={(e) => setNewPlayerAge(e.target.value)}
-          />
-        </div>
-        <div>
-          {message && modal ? (
-            <>
-              <div className="absolute top-0 left-0 w-screen h-screen bg-red-300 opacity-75">
-                <div className="flex flex-col justify-center items-center h-full">
-                  {message + " " + addedPlayerName}
-                  <button
-                    onClick={() => {
-                      setModal(false);
-                    }}
-                  >
-                    x
-                  </button>
-                </div>
-              </div>
-            </>
-          ) : null}
-        </div>
-        <div>
-          <button
-            className="mr-4 p-1 border-black border-2 border-solid rounded-md mt-4 hover:bg-blue-300 duration-300"
-            type="submit"
+      {isLoggedIn ? (
+        <>
+          <form
+            className="p-2 flex flex-col justify-center items-center w-1/2"
+            onSubmit={handleFormSubmit}
           >
-            Add Player
-          </button>
+            <div className="p-2 flex flex-col">
+              <label for="name">Name: </label>
+              <input
+                required
+                className="pl-2 border-2 border-solid border-blue-300"
+                type="text"
+                id="name"
+                name="name"
+                value={newPlayerName}
+                onChange={(e) => {
+                  setNewPlayerName(e.target.value);
+                  setAddedPlayerName(e.target.value);
+                }}
+              />
+            </div>
+            <div className="p-2 flex flex-col">
+              <label for="position">Position: </label>
+              <input
+                className="pl-2 border-2 border-solid border-blue-300"
+                type="text"
+                id="position"
+                name="position"
+                value={newPlayerPosition}
+                onChange={(e) => setNewPlayerPosition(e.target.value)}
+              />
+            </div>
+            <div className="p-2 flex flex-col">
+              <label for="team">Team: </label>
+              <input
+                className="pl-2 border-2 border-solid border-blue-300"
+                type="text"
+                id="team"
+                name="team"
+                value={newPlayerTeam}
+                onChange={(e) => setNewPlayerTeam(e.target.value)}
+              />
+            </div>
+            <div className="p-2 flex flex-col">
+              <label for="age">Age: </label>
+              <input
+                className="pl-2 border-2 border-solid border-blue-300"
+                type="text"
+                id="age"
+                name="age"
+                value={newPlayerAge}
+                onChange={(e) => setNewPlayerAge(e.target.value)}
+              />
+            </div>
+            <div>
+              {message && modal ? (
+                <>
+                  <div className="absolute top-0 left-0 w-screen h-screen bg-red-300 opacity-75">
+                    <div className="flex flex-col justify-center items-center h-full">
+                      {message + " " + addedPlayerName}
+                      <button
+                        onClick={() => {
+                          setModal(false);
+                        }}
+                      >
+                        x
+                      </button>
+                    </div>
+                  </div>
+                </>
+              ) : null}
+            </div>
+            <div>
+              <button
+                className="mr-4 p-1 border-black border-2 border-solid rounded-md mt-4 hover:bg-blue-300 duration-300"
+                type="submit"
+              >
+                Add Player
+              </button>
+              <button
+                className="m-3 p-1 border-black border-2 border-solid rounded-md hover:bg-red-300 duration-300"
+                type="reset"
+                onClick={() => {
+                  setMessage("");
+                }}
+              >
+                reset
+              </button>
+            </div>
+          </form>
           <button
-            className="m-3 p-1 border-black border-2 border-solid rounded-md hover:bg-red-300 duration-300"
-            type="reset"
             onClick={() => {
-              setMessage("");
+              navigate("/");
             }}
           >
-            reset
+            Go to Players
           </button>
-        </div>
-      </form>
-      <button
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        Go to Players
-      </button>
+        </>
+      ) : (
+        <>
+          <div>Please log in to view this page.</div>
+          <div>
+            <button
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Login
+            </button>
+          </div>
+        </>
+      )}
     </>
   );
 }

@@ -28,7 +28,7 @@ export default function ShowPlayerList() {
         setIsLoggedIn(false);
         navigate("/login");
       });
-  }, [token, navigate]);
+  }, [token, navigate, setIsLoggedIn]);
 
   return (
     <>
@@ -63,13 +63,6 @@ export default function ShowPlayerList() {
             </button>
           </div>
           <div>
-            <button
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              Login to view
-            </button>
             <button
               onClick={() => {
                 cookies.remove("TOKEN", { path: "/" });
