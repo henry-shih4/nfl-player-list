@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { LoginContext } from "./LoginContext.js";
 
 export default function Register() {
+  const [isLoggedIn, setIsLoggedIn] = useContext(LoginContext);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
@@ -37,42 +39,50 @@ export default function Register() {
 
   return (
     <>
-      <div>Registration</div>
-      <form onSubmit={handleFormSubmit} className="flex flex-col">
-        <label for="user">Username: </label>
-        <input
-          type="text"
-          id="user"
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
-          value={username}
-          placeholder="username"
-        />
+      {isLoggedIn ? (
+        <>
+          <div>Logged in</div>
+        </>
+      ) : (
+        <>
+          <div>Registration</div>
+          <form onSubmit={handleFormSubmit} className="flex flex-col">
+            <label for="user">Username: </label>
+            <input
+              type="text"
+              id="user"
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+              value={username}
+              placeholder="username"
+            />
 
-        <label for="password">Password: </label>
-        <input
-          type="password"
-          id="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          value={password}
-        />
+            <label for="password">Password: </label>
+            <input
+              type="password"
+              id="password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              value={password}
+            />
 
-        <label for="email">Email: </label>
-        <input
-          type="email"
-          id="email"
-          placeholder="henry@gmail.com"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          value={email}
-        />
-        <button>Register</button>
-      </form>
-      <button onClick={() => navigate("/login")}>Login</button>
+            <label for="email">Email: </label>
+            <input
+              type="email"
+              id="email"
+              placeholder="henry@gmail.com"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              value={email}
+            />
+            <button>Register</button>
+          </form>
+          <button onClick={() => navigate("/login")}>Login</button>
+        </>
+      )}
     </>
   );
 }

@@ -15,11 +15,6 @@ export default function Player() {
   const [updated, setUpdated] = useState(false);
   const token = cookies.get("TOKEN");
 
-  // useEffect(() => {
-  //   console.log(tempPlayer);
-  //   console.log(updated);
-  // });
-
   useEffect(() => {
     axios
       .get(url + params.id, {
