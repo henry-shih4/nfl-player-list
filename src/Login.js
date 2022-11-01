@@ -30,21 +30,19 @@ export default function Login() {
       .post(url, user)
       .then((response) => {
         if (response.data.message === "Login Successful") {
-          console.log(response);
           console.log("logged in");
           cookies.set("TOKEN", response.data.token, {
             path: "/",
-            maxAge: 300,
+            maxAge: 1000,
           });
           navigate("/");
           setIsLoggedIn(true);
         } else {
-          console.log("invalid credentials");
           navigate("/login");
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
         navigate("/login");
       });
   }
@@ -52,41 +50,55 @@ export default function Login() {
   return (
     <>
       {isLoggedIn ? (
-        <div>You are logged in.</div>
+        <>
+          <div>You are already logged in.</div>
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Back to main page
+          </button>
+        </>
       ) : (
         <>
-          <div>Login Page</div>
-          <form onSubmit={handleFormSubmit} className="flex flex-col">
-            <label for="user">Username: </label>
-            <input
-              type="text"
-              id="user"
-              placeholder="username"
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-              value={username}
-            />
-            <label for="password">Password: </label>
-            <input
-              type="password"
-              id="password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              value={password}
-            />
-            <button>Login</button>
-          </form>
+          <div className="flex justify-center items-center h-screen">
+            <div className="flex justify-between flex-col items-center h-[300px] w-[300px] bg-red-300 rounded-lg">
+              <div className="p-2">Login Page</div>
+              <form onSubmit={handleFormSubmit} className="flex flex-col">
+                <label for="user">Username: </label>
+                <input
+                  type="text"
+                  id="user"
+                  placeholder="username"
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                  value={username}
+                />
+                <label for="password">Password: </label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  value={password}
+                />
+                <button>Login</button>
+              </form>
 
-          <div className="flex flex-col">
-            <button
-              onClick={() => {
-                navigate("/register");
-              }}
-            >
-              Not a user? Register here
-            </button>
+              <div className="flex flex-col">
+                <button
+                  onClick={() => {
+                    navigate("/register");
+                  }}
+                >
+                  Not a user? Register here
+                </button>
+              </div>
+            </div>
           </div>
         </>
       )}

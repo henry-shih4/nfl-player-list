@@ -5,6 +5,7 @@ import AddPlayer from "./AddPlayer";
 import Player from "./Player";
 import Login from "./Login";
 import Register from "./Register";
+import NotFound from "./NotFound";
 import { LoginProvider } from "./LoginContext.js";
 
 function App() {
@@ -13,11 +14,12 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<ShowPlayerList />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/add-player" element={<AddPlayer />} />
-            <Route path="/player/:id" element={<Player />} />
+            <Route exact path="/" element={<ShowPlayerList />} />
+            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/add-player" element={<AddPlayer />} />
+            <Route exact path="/player/:id" element={<Player />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </div>

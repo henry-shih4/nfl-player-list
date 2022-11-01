@@ -41,46 +41,57 @@ export default function Register() {
     <>
       {isLoggedIn ? (
         <>
-          <div>Logged in</div>
+          <div>You are already logged in.</div>
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Back to main page
+          </button>
         </>
       ) : (
         <>
-          <div>Registration</div>
-          <form onSubmit={handleFormSubmit} className="flex flex-col">
-            <label for="user">Username: </label>
-            <input
-              type="text"
-              id="user"
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-              value={username}
-              placeholder="username"
-            />
+          <div className="flex justify-center items-center h-screen">
+            <div className="flex justify-between flex-col items-center h-[300px] w-[300px] bg-red-300 rounded-lg">
+              <div className="p-2">Registration</div>
+              <form onSubmit={handleFormSubmit} className="flex flex-col">
+                <label for="user">Username: </label>
+                <input
+                  type="text"
+                  id="user"
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                  value={username}
+                  placeholder="username"
+                />
 
-            <label for="password">Password: </label>
-            <input
-              type="password"
-              id="password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              value={password}
-            />
+                <label for="password">Password: </label>
+                <input
+                  type="password"
+                  id="password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  value={password}
+                />
 
-            <label for="email">Email: </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="henry@gmail.com"
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              value={email}
-            />
-            <button>Register</button>
-          </form>
-          <button onClick={() => navigate("/login")}>Login Page</button>
+                <label for="email">Email: </label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="henry@gmail.com"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                  value={email}
+                />
+                <button>Register</button>
+              </form>
+              <button onClick={() => navigate("/login")}>Login Page</button>
+            </div>
+          </div>
         </>
       )}
     </>
