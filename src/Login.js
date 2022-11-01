@@ -10,9 +10,17 @@ export default function Login() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [user, setUser] = useState();
+  const [errorMsg, setErrorMsg] = useState();
   const [isLoggedIn, setIsLoggedIn] = useContext(LoginContext);
   const url = "https://nfl-players-server.herokuapp.com/users/login";
   const token = cookies.get("TOKEN");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setErrorMsg(null);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [errorMsg]);
 
   useEffect(() => {
     if (!token) {
@@ -44,6 +52,7 @@ export default function Login() {
         }
       })
       .catch((error) => {
+        setErrorMsg(error.response.data.message);
         console.log(error.message);
         navigate("/login");
       });
@@ -88,7 +97,12 @@ export default function Login() {
                   }}
                   value={password}
                 />
-                <button>Login</button>
+                <div className="text-center">
+                  <button className="border-black border-2 border-solid m-3 w-[60px] rounded-md hover:bg-white duration-500">
+                    Login
+                  </button>
+                  {errorMsg ? <div>{errorMsg}</div> : null}
+                </div>
               </form>
 
               <div className="flex flex-col">
