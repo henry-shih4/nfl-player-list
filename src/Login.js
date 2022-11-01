@@ -12,10 +12,13 @@ export default function Login() {
   const [user, setUser] = useState();
   const [isLoggedIn, setIsLoggedIn] = useContext(LoginContext);
   const url = "https://nfl-players-server.herokuapp.com/users/login";
+  const token = cookies.get("TOKEN");
 
   useEffect(() => {
-    console.log(isLoggedIn);
-  });
+    if (!token) {
+      setIsLoggedIn(false);
+    }
+  }, [token]);
 
   useEffect(() => {
     setUser({
@@ -30,10 +33,9 @@ export default function Login() {
       .post(url, user)
       .then((response) => {
         if (response.data.message === "Login Successful") {
-          console.log("logged in");
           cookies.set("TOKEN", response.data.token, {
             path: "/",
-            maxAge: 1000,
+            maxAge: 300,
           });
           navigate("/");
           setIsLoggedIn(true);
