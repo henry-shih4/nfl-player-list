@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
 import { LoginContext } from "./LoginContext";
+import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 export default function ShowPlayerList() {
@@ -71,6 +71,13 @@ export default function ShowPlayerList() {
                 }}
               >
                 Logout
+              </button>
+              <button
+                onClick={() => {
+                  navigate("/admin");
+                }}
+              >
+                Admin Only
               </button>
             </div>
           </div>
