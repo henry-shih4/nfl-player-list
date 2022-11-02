@@ -30,55 +30,58 @@ export default function ShowPlayerList() {
     <>
       {isLoggedIn ? (
         <>
-          <div className="flex justify-center items-center flex-col h-screen">
-            <div className="m-2 flex justify-center items-center">
-              Player List
-            </div>
-            <div className="flex flex-wrap justify-center">
-              {playerList
-                ? playerList.map((player) => {
-                    return (
-                      <div
-                        key={player._id}
-                        onClick={() => {
-                          navigate(`/player/${player._id}`);
-                        }}
-                        className="h-[100px] w-[100px] bg-blue-300 m-2 p-1 flex justify-center items-center text-center rounded-full"
-                      >
-                        {player.name}
-                      </div>
-                    );
-                  })
-                : null}
-            </div>
-            <div className="flex justify-center">
-              <button
-                className="flex justify-center w-[100px]"
-                onClick={() => {
-                  navigate("/add-player");
-                }}
-              >
-                Add a player
-              </button>
-            </div>
-            <div>
-              <button
-                className="absolute top-0 right-3 border-black border-solid border-2 p-1 m-1 hover:bg-blue-300"
-                onClick={() => {
-                  cookies.remove("TOKEN", { path: "/" });
-                  setIsLoggedIn(false);
-                  navigate("/login");
-                }}
-              >
-                Logout
-              </button>
-              <button
-                onClick={() => {
-                  navigate("/admin");
-                }}
-              >
-                Admin Only
-              </button>
+          <div className="h-screen justify-center items-center">
+            <div className="bg-[#121420] flex justify-center items-center flex-col min-h-full">
+              <div className="m-2 flex justify-center items-center text-white">
+                Player List
+              </div>
+              <div className="flex flex-wrap justify-center">
+                {playerList
+                  ? playerList.map((player) => {
+                      return (
+                        <div
+                          key={player._id}
+                          onClick={() => {
+                            navigate(`/player/${player._id}`);
+                          }}
+                          className="h-[100px] w-[100px] bg-white m-2 p-1 flex justify-center items-center text-center rounded-full"
+                        >
+                          {player.name}
+                        </div>
+                      );
+                    })
+                  : null}
+              </div>
+              <div className="flex justify-center">
+                <button
+                  className="text-white flex justify-center w-[100px]"
+                  onClick={() => {
+                    navigate("/add-player");
+                  }}
+                >
+                  Add a player
+                </button>
+              </div>
+              <div>
+                <button
+                  className="absolute top-0 right-3 border-white border-solid border-2 p-1 m-1 hover:bg-white hover:text-[#121420] text-white"
+                  onClick={() => {
+                    cookies.remove("TOKEN", { path: "/" });
+                    setIsLoggedIn(false);
+                    navigate("/login");
+                  }}
+                >
+                  Logout
+                </button>
+                <button
+                  className="text-white"
+                  onClick={() => {
+                    navigate("/admin");
+                  }}
+                >
+                  Admin Only
+                </button>
+              </div>
             </div>
           </div>
         </>

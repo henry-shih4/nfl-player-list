@@ -15,7 +15,16 @@ export default function Player() {
   const [change, setChange] = useState(false);
   const [updated, setUpdated] = useState(false);
   const [isLoggedIn] = useContext(LoginContext);
+  const [errorMsg, setErrorMsg] = useState();
   const token = cookies.get("TOKEN");
+
+  //resets error message
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setErrorMsg(null);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [errorMsg]);
 
   useEffect(() => {
     axios
@@ -23,7 +32,6 @@ export default function Player() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        console.log(response.data);
         setPlayerInfo(response.data);
         setTempPlayer(response.data);
       })
@@ -43,6 +51,7 @@ export default function Player() {
         navigate("/");
       })
       .catch((error) => {
+        setErrorMsg(error.response.statusText);
         console.log(error);
       });
   }
@@ -54,11 +63,12 @@ export default function Player() {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
-          console.log(res.data.msg);
           navigate(`/player/${params.id}`);
           setUpdated(!updated);
         })
-        .catch((err) => {
+        .catch((error) => {
+          setErrorMsg(error.response.statusText);
+          setTempPlayer({ ...playerInfo });
           console.log("Error with updating player info!");
         });
       setInput(false);
@@ -182,6 +192,7 @@ export default function Player() {
                 delete
               </button>
             </div>
+            {errorMsg ? <div>{errorMsg}</div> : null}
             <button
               onClick={() => {
                 navigate("/");

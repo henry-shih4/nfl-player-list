@@ -9,8 +9,16 @@ export default function Register() {
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
   const [newUser, setNewUser] = useState();
+  const [msg, setMsg] = useState();
   const navigate = useNavigate();
   const url = "https://nfl-players-server.herokuapp.com/users/";
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMsg(null);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [msg]);
 
   useEffect(() => {
     setNewUser({
@@ -22,11 +30,10 @@ export default function Register() {
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    console.log(username, password, email);
     axios
       .post(url, newUser)
       .then((response) => {
-        console.log("created");
+        setMsg(response.request.statusText + " " + "new user");
         console.log(response);
         if (response.status === 201) {
           setUsername("");
@@ -34,7 +41,10 @@ export default function Register() {
           setEmail("");
         }
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        console.log(error.message);
+        setMsg(error.response.data.conflict);
+      });
   }
 
   return (
@@ -88,6 +98,7 @@ export default function Register() {
                   value={email}
                 />
                 <button>Register</button>
+                {msg ? <div className="text-center">{msg}</div> : null}
               </form>
               <button onClick={() => navigate("/login")}>Login Page</button>
             </div>

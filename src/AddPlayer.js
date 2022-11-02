@@ -15,9 +15,23 @@ export default function AddPlayer() {
   const [addedPlayerName, setAddedPlayerName] = useState();
   const [message, setMessage] = useState("");
   const [modal, setModal] = useState(false);
+  const [errorMsg, setErrorMsg] = useState();
   const [isLoggedIn] = useContext(LoginContext);
   const navigate = useNavigate();
   const token = cookies.get("TOKEN");
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setErrorMsg(null);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [errorMsg]);
 
   useEffect(() => {
     setNewPlayerInfo({
@@ -43,7 +57,11 @@ export default function AddPlayer() {
         setNewPlayerAge("");
         setModal(true);
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        console.log(error);
+        setErrorMsg(error.response.statusText);
+        console.log(error.message);
+      });
   }
 
   return (
@@ -131,12 +149,16 @@ export default function AddPlayer() {
                 className="m-3 p-1 border-black border-2 border-solid rounded-md hover:bg-red-300 duration-300"
                 type="reset"
                 onClick={() => {
-                  setMessage("");
+                  setNewPlayerName("");
+                  setNewPlayerPosition("");
+                  setNewPlayerAge("");
+                  setNewPlayerAge("");
                 }}
               >
                 reset
               </button>
             </div>
+            {errorMsg ? <div>{errorMsg}</div> : null}
           </form>
           <button
             onClick={() => {
