@@ -11,7 +11,7 @@ export default function Login() {
   const [password, setPassword] = useState();
   const [user, setUser] = useState();
   const [errorMsg, setErrorMsg] = useState();
-  const [isLoggedIn, setIsLoggedIn] = useContext(LoginContext);
+  const [isLoggedIn, setIsLoggedIn, setActiveUser] = useContext(LoginContext);
   const url = "https://nfl-players-server.herokuapp.com/users/login";
   const token = cookies.get("TOKEN");
 
@@ -26,7 +26,7 @@ export default function Login() {
     if (!token) {
       setIsLoggedIn(false);
     }
-  }, [token]);
+  }, [token, setIsLoggedIn]);
 
   useEffect(() => {
     setUser({
@@ -47,6 +47,7 @@ export default function Login() {
           });
           navigate("/");
           setIsLoggedIn(true);
+          setActiveUser(response.data.username);
         } else {
           navigate("/login");
         }

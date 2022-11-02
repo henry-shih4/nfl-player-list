@@ -8,7 +8,7 @@ const cookies = new Cookies();
 export default function ShowPlayerList() {
   const [playerList, setPlayerList] = useState([]);
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useContext(LoginContext);
+  const [isLoggedIn, setIsLoggedIn, activeUser] = useContext(LoginContext);
   const token = cookies.get("TOKEN");
 
   useEffect(() => {
@@ -30,6 +30,7 @@ export default function ShowPlayerList() {
     <>
       {isLoggedIn ? (
         <>
+          <div>{activeUser}</div>
           <div className="h-screen justify-center items-center">
             <div className="bg-[#121420] flex justify-center items-center flex-col min-h-full">
               <div className="m-2 flex justify-center items-center text-white">

@@ -60,24 +60,24 @@ export default function Player() {
       .catch((error) => {
         console.log(error);
       });
-  }, [playerInfo.name]);
 
-  function disambiguationFetch() {
-    axios
-      .get(
-        `https://en.wikipedia.org/api/rest_v1/page/summary/${
-          playerInfo.name
-        } (${playerInfo.position.toLowerCase()})`
-      )
-      .then((response) => {
-        console.log(response);
-        setPlayerBio(response.data.extract);
-        setPlayerImage(response.data.originalimage.source);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+    function disambiguationFetch() {
+      axios
+        .get(
+          `https://en.wikipedia.org/api/rest_v1/page/summary/${
+            playerInfo.name
+          } (${playerInfo.position.toLowerCase()})`
+        )
+        .then((response) => {
+          console.log(response);
+          setPlayerBio(response.data.extract);
+          setPlayerImage(response.data.originalimage.source);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [playerInfo.name, playerInfo.position]);
 
   function handlePlayerDelete() {
     axios
@@ -126,125 +126,143 @@ export default function Player() {
     <>
       {isLoggedIn ? (
         <>
-          <div className="flex justify-center items-center flex-col">
-            <div>Player</div>
-            {playerInfo ? (
-              <div className="">
-                {input ? (
-                  <>
-                    <div className="flex flex-col p-2">
-                      <label>Name: </label>
-                      <input
-                        className="border-2 border-black border-solid w-max"
-                        value={tempPlayer.name}
-                        onChange={(e) => {
-                          setTempPlayer({
-                            ...tempPlayer,
-                            name: e.target.value,
-                          });
-                          setChange(true);
-                        }}
-                      />
+          <div className="flex justify-center items-center flex-wrap h-screen">
+            <div className="flex justify-center items-center flex-col">
+              <div>Player Profile</div>
+              {playerInfo ? (
+                <div className="">
+                  {input ? (
+                    <>
+                      <div className="flex flex-col p-2">
+                        <label>Name: </label>
+                        <input
+                          className="border-2 border-black border-solid w-max"
+                          value={tempPlayer.name}
+                          onChange={(e) => {
+                            setTempPlayer({
+                              ...tempPlayer,
+                              name: e.target.value,
+                            });
+                            setChange(true);
+                          }}
+                        />
 
-                      <label>Position: </label>
-                      <input
-                        className="border-2 border-black border-solid w-max"
-                        value={tempPlayer.position}
-                        onChange={(e) => {
-                          setTempPlayer({
-                            ...tempPlayer,
-                            position: e.target.value,
-                          });
-                          setChange(true);
-                        }}
-                      />
+                        <label>Position: </label>
+                        <input
+                          className="border-2 border-black border-solid w-max"
+                          value={tempPlayer.position}
+                          onChange={(e) => {
+                            setTempPlayer({
+                              ...tempPlayer,
+                              position: e.target.value,
+                            });
+                            setChange(true);
+                          }}
+                        />
 
-                      <label>Team: </label>
-                      <input
-                        className="border-2 border-black border-solid w-max"
-                        value={tempPlayer.team}
-                        onChange={(e) => {
-                          setTempPlayer({
-                            ...tempPlayer,
-                            team: e.target.value,
-                          });
-                          setChange(true);
-                        }}
-                      />
+                        <label>Team: </label>
+                        <input
+                          className="border-2 border-black border-solid w-max"
+                          value={tempPlayer.team}
+                          onChange={(e) => {
+                            setTempPlayer({
+                              ...tempPlayer,
+                              team: e.target.value,
+                            });
+                            setChange(true);
+                          }}
+                        />
 
-                      <label>Age: </label>
-                      <input
-                        className="border-2 border-black border-solid w-max"
-                        value={tempPlayer.age}
-                        onChange={(e) => {
-                          setTempPlayer({ ...tempPlayer, age: e.target.value });
-                          setChange(true);
-                        }}
-                      />
-                      <div className="flex justify-center items-center mt-3">
-                        <button
-                          className="w-[60px] m-2 p-1 border-black border-2 border-solid rounded-md"
-                          onClick={handlePlayerSave}
-                        >
-                          save
-                        </button>
+                        <label>Age: </label>
+                        <input
+                          className="border-2 border-black border-solid w-max"
+                          value={tempPlayer.age}
+                          onChange={(e) => {
+                            setTempPlayer({
+                              ...tempPlayer,
+                              age: e.target.value,
+                            });
+                            setChange(true);
+                          }}
+                        />
+                        <div className="flex justify-center items-center mt-3">
+                          <button
+                            className="w-[60px] m-2 p-1 border-black border-2 border-solid rounded-md"
+                            onClick={handlePlayerSave}
+                          >
+                            save
+                          </button>
 
-                        <button
-                          className="w-[60px] m-2 p-1 border-black border-2 border-solid rounded-md"
-                          onClick={handlePlayerCancel}
-                        >
-                          cancel
-                        </button>
+                          <button
+                            className="w-[60px] m-2 p-1 border-black border-2 border-solid rounded-md"
+                            onClick={handlePlayerCancel}
+                          >
+                            cancel
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="m-3 p-2 text-md">
-                      <div className="m-1 p-2">Name: {playerInfo.name}</div>
-                      <div className="m-1 p-2">
-                        Position: {playerInfo.position}
+                    </>
+                  ) : (
+                    <>
+                      <div className="m-3 text-md">
+                        <div className="m-1 p-2">Name: {playerInfo.name}</div>
+                        <div className="m-1 p-2">
+                          Position: {playerInfo.position}
+                        </div>
+                        <div className="m-1 p-2">Team: {playerInfo.team}</div>
+                        <div className="m-1 p-2">Age: {playerInfo.age}</div>
                       </div>
-                      <div className="m-1 p-2">Team: {playerInfo.team}</div>
-                      <div className="m-1 p-2">Age: {playerInfo.age}</div>
-                    </div>
-                  </>
-                )}
+                    </>
+                  )}
+                </div>
+              ) : null}
+              <div className="m-2 flex items-center">
+                <button
+                  className="w-[60px] m-2 p-1 border-black border-2 border-solid rounded-md"
+                  onClick={() => {
+                    setInput(true);
+                  }}
+                >
+                  {" "}
+                  edit
+                </button>
+
+                <button
+                  className="w-[60px] p-1 m-2 border-black border-2 border-solid rounded-md"
+                  onClick={handlePlayerDelete}
+                >
+                  delete
+                </button>
               </div>
-            ) : null}
-            <div className="m-2 flex items-center">
+              {errorMsg ? <div>{errorMsg}</div> : null}
               <button
-                className="w-[60px] m-2 p-1 border-black border-2 border-solid rounded-md"
                 onClick={() => {
-                  setInput(true);
+                  navigate("/");
                 }}
               >
-                {" "}
-                edit
-              </button>
-
-              <button
-                className="w-[60px] p-1 m-2 border-black border-2 border-solid rounded-md"
-                onClick={handlePlayerDelete}
-              >
-                delete
+                back to players
               </button>
             </div>
-            {errorMsg ? <div>{errorMsg}</div> : null}
-            <button
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              back to players
-            </button>
+            <div className="flex flex-wrap justify-center pt-4">
+              {playerImage ? (
+                <div className="h-[400px] w-[300px] flex justify-center ">
+                  <img
+                    alt={`${playerInfo.name}`}
+                    className="max-h-[400px] m-3 rounded-xl bg-red-300"
+                    src={playerImage}
+                  />
+                </div>
+              ) : null}
+              {playerBio ? (
+                <div
+                  className="w-[400px] flex justify-center items-center p-3"
+                  bg-red-300
+                >
+                  {playerBio}
+                </div>
+              ) : null}
+            </div>
           </div>
-          {playerBio ? <div>{playerBio}</div> : null}
-          {playerImage ? (
-            <div className="h-[300px] w-[300px]">
-              <img src={playerImage} />
-            </div>
-          ) : null}
         </>
       ) : null}
     </>
