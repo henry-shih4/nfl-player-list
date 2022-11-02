@@ -16,6 +16,9 @@ export default function Player() {
   const [updated, setUpdated] = useState(false);
   const [isLoggedIn] = useContext(LoginContext);
   const [errorMsg, setErrorMsg] = useState();
+  const [playerBio, setPlayerBio] = useState();
+  const [playerImage, setPlayerImage] = useState();
+
   const token = cookies.get("TOKEN");
 
   //resets error message
@@ -40,6 +43,41 @@ export default function Player() {
         navigate("/login");
       });
   }, [params.id, updated, token, navigate]);
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${playerInfo.name}`
+      )
+      .then((response) => {
+        console.log(response);
+        if (response.data.type === "disambiguation") {
+          disambiguationFetch();
+        }
+        setPlayerBio(response.data.extract);
+        setPlayerImage(response.data.originalimage.source);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [playerInfo.name]);
+
+  function disambiguationFetch() {
+    axios
+      .get(
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${
+          playerInfo.name
+        } (${playerInfo.position.toLowerCase()})`
+      )
+      .then((response) => {
+        console.log(response);
+        setPlayerBio(response.data.extract);
+        setPlayerImage(response.data.originalimage.source);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   function handlePlayerDelete() {
     axios
@@ -201,6 +239,12 @@ export default function Player() {
               back to players
             </button>
           </div>
+          {playerBio ? <div>{playerBio}</div> : null}
+          {playerImage ? (
+            <div className="h-[300px] w-[300px]">
+              <img src={playerImage} />
+            </div>
+          ) : null}
         </>
       ) : null}
     </>
