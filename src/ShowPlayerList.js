@@ -8,7 +8,8 @@ const cookies = new Cookies();
 export default function ShowPlayerList() {
   const [playerList, setPlayerList] = useState([]);
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn, activeUser] = useContext(LoginContext);
+  const [isLoggedIn, changeLoggedIn, setCurrentUser, activeUser] =
+    useContext(LoginContext);
   const token = cookies.get("TOKEN");
 
   useEffect(() => {
@@ -21,16 +22,20 @@ export default function ShowPlayerList() {
       })
       .catch((error) => {
         console.log(error.message);
-        setIsLoggedIn(false);
+        changeLoggedIn(false);
         navigate("/login");
       });
-  }, [token, navigate, setIsLoggedIn]);
+  }, [token, navigate, changeLoggedIn]);
 
   return (
     <>
       {isLoggedIn ? (
         <>
-          <div>{activeUser}</div>
+          {activeUser ? (
+            <div className="absolute top-0 left-0 w-[180px] text-white m-2">
+              Welcome, {activeUser}
+            </div>
+          ) : null}
           <div className="h-screen justify-center items-center">
             <div className="bg-[#121420] flex justify-center items-center flex-col min-h-full">
               <div className="m-2 flex justify-center items-center text-white">
@@ -65,10 +70,10 @@ export default function ShowPlayerList() {
               </div>
               <div>
                 <button
-                  className="absolute top-0 right-3 border-white border-solid border-2 p-1 m-1 hover:bg-white hover:text-[#121420] text-white"
+                  className="absolute top-1 right-3 border-white border-solid border-2 p-1 m-2 hover:bg-white hover:text-[#121420] text-white duration-500"
                   onClick={() => {
                     cookies.remove("TOKEN", { path: "/" });
-                    setIsLoggedIn(false);
+                    changeLoggedIn(false);
                     navigate("/login");
                   }}
                 >

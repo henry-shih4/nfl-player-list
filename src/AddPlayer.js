@@ -66,122 +66,125 @@ export default function AddPlayer() {
 
   return (
     <>
-      {isLoggedIn ? (
-        <>
-          <form
-            className="p-2 flex flex-col justify-center items-center w-1/2"
-            onSubmit={handleFormSubmit}
-          >
-            <div className="p-2 flex flex-col">
-              <label for="name">Name: </label>
-              <input
-                required
-                className="pl-2 border-2 border-solid border-blue-300"
-                type="text"
-                id="name"
-                name="name"
-                value={newPlayerName}
-                onChange={(e) => {
-                  setNewPlayerName(e.target.value);
-                  setAddedPlayerName(e.target.value);
-                }}
-              />
-            </div>
-            <div className="p-2 flex flex-col">
-              <label for="position">Position: </label>
-              <input
-                className="pl-2 border-2 border-solid border-blue-300"
-                type="text"
-                id="position"
-                name="position"
-                value={newPlayerPosition}
-                onChange={(e) => setNewPlayerPosition(e.target.value)}
-              />
-            </div>
-            <div className="p-2 flex flex-col">
-              <label for="team">Team: </label>
-              <input
-                className="pl-2 border-2 border-solid border-blue-300"
-                type="text"
-                id="team"
-                name="team"
-                value={newPlayerTeam}
-                onChange={(e) => setNewPlayerTeam(e.target.value)}
-              />
-            </div>
-            <div className="p-2 flex flex-col">
-              <label for="age">Age: </label>
-              <input
-                className="pl-2 border-2 border-solid border-blue-300"
-                type="text"
-                id="age"
-                name="age"
-                value={newPlayerAge}
-                onChange={(e) => setNewPlayerAge(e.target.value)}
-              />
-            </div>
-            <div>
-              {message && modal ? (
-                <>
-                  <div className="absolute top-0 left-0 w-screen h-screen bg-red-300 opacity-75">
-                    <div className="flex flex-col justify-center items-center h-full">
-                      {message + " " + addedPlayerName}
-                      <button
-                        onClick={() => {
-                          setModal(false);
-                        }}
-                      >
-                        x
-                      </button>
+      <div className="flex justify-center items-center flex-col">
+        {isLoggedIn ? (
+          <>
+            <form
+              className="p-2 flex flex-col justify-center items-center w-1/2"
+              onSubmit={handleFormSubmit}
+            >
+              <div className="p-2 flex flex-col">
+                <label for="name">Name: </label>
+                <input
+                  required
+                  className="pl-2 border border-solid border-indigo-500"
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={newPlayerName}
+                  onChange={(e) => {
+                    setNewPlayerName(e.target.value);
+                    setAddedPlayerName(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="p-2 flex flex-col">
+                <label for="position">Position: </label>
+                <input
+                  className="pl-2 border border-solid border-indigo-500"
+                  type="text"
+                  id="position"
+                  name="position"
+                  value={newPlayerPosition}
+                  onChange={(e) => setNewPlayerPosition(e.target.value)}
+                />
+              </div>
+              <div className="p-2 flex flex-col">
+                <label for="team">Team: </label>
+                <input
+                  className="pl-2 border border-solid border-indigo-500"
+                  type="text"
+                  id="team"
+                  name="team"
+                  value={newPlayerTeam}
+                  onChange={(e) => setNewPlayerTeam(e.target.value)}
+                />
+              </div>
+              <div className="p-2 flex flex-col">
+                <label for="age">Age: </label>
+                <input
+                  className="pl-2 border border-solid border-indigo-500"
+                  type="text"
+                  id="age"
+                  name="age"
+                  value={newPlayerAge}
+                  onChange={(e) => setNewPlayerAge(e.target.value)}
+                />
+              </div>
+              <div>
+                {message && modal ? (
+                  <>
+                    <div className="absolute top-0 left-0 w-screen h-screen bg-slate-400 opacity-75">
+                      <div className="flex flex-col justify-center items-center h-full bg-slate-200">
+                        {message + " " + addedPlayerName}
+                        <button
+                          onClick={() => {
+                            setModal(false);
+                          }}
+                        >
+                          x
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </>
-              ) : null}
-            </div>
-            <div>
-              <button
-                className="mr-4 p-1 border-black border-2 border-solid rounded-md mt-4 hover:bg-blue-300 duration-300"
-                type="submit"
-              >
-                Add Player
-              </button>
-              <button
-                className="m-3 p-1 border-black border-2 border-solid rounded-md hover:bg-red-300 duration-300"
-                type="reset"
-                onClick={() => {
-                  setNewPlayerName("");
-                  setNewPlayerPosition("");
-                  setNewPlayerAge("");
-                  setNewPlayerAge("");
-                }}
-              >
-                reset
-              </button>
-            </div>
-            {errorMsg ? <div>{errorMsg}</div> : null}
-          </form>
-          <button
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Go to Players
-          </button>
-        </>
-      ) : (
-        <>
-          <div>Please log in to view this page.</div>
-          <div>
+                  </>
+                ) : null}
+              </div>
+              <div>
+                <button
+                  className="bg-white text-indigo-600 m-3 w-[80px] border-2 border-solid border-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white duration-500 text-sm p-1"
+                  type="submit"
+                >
+                  Add Player
+                </button>
+                <button
+                  className="bg-white text-indigo-600 m-3 w-[80px] border-2 border-solid border-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white duration-500 text-sm p-1"
+                  type="reset"
+                  onClick={() => {
+                    setNewPlayerName("");
+                    setNewPlayerPosition("");
+                    setNewPlayerAge("");
+                    setNewPlayerAge("");
+                  }}
+                >
+                  reset
+                </button>
+              </div>
+              {errorMsg ? <div>{errorMsg}</div> : null}
+            </form>
             <button
+              className="bg-white text-slate-400 m-3 w-[120px] border border-solid border-slate-500 rounded-md hover:bg-slate-500 hover:text-white duration-500 text-sm p-1"
               onClick={() => {
-                navigate("/login");
+                navigate("/");
               }}
             >
-              Login
+              Go to Players
             </button>
-          </div>
-        </>
-      )}
+          </>
+        ) : (
+          <>
+            <div>Please log in to view this page.</div>
+            <div>
+              <button
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Login
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </>
   );
 }

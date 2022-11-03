@@ -63,7 +63,7 @@ export default function Register() {
       ) : (
         <>
           <div className="flex justify-center items-center h-screen">
-            <div className="flex justify-between flex-col items-center h-[300px] w-[300px] bg-red-300 rounded-lg">
+            <div className="flex justify-between flex-col items-center h-[300px] w-[300px] bg-slate-100 rounded-lg">
               <div className="p-2">Registration</div>
               <form onSubmit={handleFormSubmit} className="flex flex-col">
                 <label for="user">Username: </label>
@@ -85,19 +85,24 @@ export default function Register() {
                     setPassword(e.target.value);
                   }}
                   value={password}
+                  placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                 />
 
                 <label for="email">Email: </label>
                 <input
                   type="email"
                   id="email"
-                  placeholder="henry@gmail.com"
+                  placeholder="example@gmail.com"
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
                   value={email}
                 />
-                <button>Register</button>
+                <div className="text-center">
+                  <button className="bg-white text-indigo-600 m-3 w-[80px] border-2 border-solid border-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white duration-500 text-sm p-1">
+                    Register
+                  </button>
+                </div>
                 {msg ? <div className="text-center">{msg}</div> : null}
               </form>
               <button onClick={() => navigate("/login")}>Login Page</button>

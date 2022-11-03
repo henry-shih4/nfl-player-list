@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { LoginContext } from "./LoginContext.js";
+import Header from "./Header.js";
 const cookies = new Cookies();
 
 export default function Login() {
@@ -11,7 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState();
   const [user, setUser] = useState();
   const [errorMsg, setErrorMsg] = useState();
-  const [isLoggedIn, setIsLoggedIn, setActiveUser] = useContext(LoginContext);
+  const [isLoggedIn, changeLoggedIn, setCurrentUser] = useContext(LoginContext);
   const url = "https://nfl-players-server.herokuapp.com/users/login";
   const token = cookies.get("TOKEN");
 
@@ -24,9 +25,9 @@ export default function Login() {
 
   useEffect(() => {
     if (!token) {
-      setIsLoggedIn(false);
+      changeLoggedIn(false);
     }
-  }, [token, setIsLoggedIn]);
+  }, [token, changeLoggedIn]);
 
   useEffect(() => {
     setUser({
@@ -46,8 +47,8 @@ export default function Login() {
             maxAge: 300,
           });
           navigate("/");
-          setIsLoggedIn(true);
-          setActiveUser(response.data.username);
+          changeLoggedIn(true);
+          setCurrentUser(response.data.username);
         } else {
           navigate("/login");
         }
@@ -55,12 +56,14 @@ export default function Login() {
       .catch((error) => {
         setErrorMsg(error.response.data.message);
         console.log(error.message);
+        console.log(error);
         navigate("/login");
       });
   }
 
   return (
     <>
+      <Header />
       {isLoggedIn ? (
         <>
           <div>You are already logged in.</div>
@@ -75,7 +78,7 @@ export default function Login() {
       ) : (
         <>
           <div className="flex justify-center items-center h-screen">
-            <div className="flex justify-between flex-col items-center h-[300px] w-[300px] bg-red-300 rounded-lg">
+            <div className="flex justify-between flex-col items-center h-[300px] w-[300px] bg-slate-100 rounded-lg">
               <div className="p-2">Login Page</div>
               <form onSubmit={handleFormSubmit} className="flex flex-col">
                 <label for="user">Username: </label>
@@ -92,17 +95,19 @@ export default function Login() {
                 <input
                   type="password"
                   id="password"
-                  placeholder="password"
+                  placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
                   value={password}
                 />
                 <div className="text-center">
-                  <button className="border-black border-2 border-solid m-3 w-[60px] rounded-md hover:bg-white duration-500">
+                  <button className="bg-white text-indigo-600 m-3 w-[80px] border-2 border-solid border-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white duration-500 text-sm p-1">
                     Login
                   </button>
-                  {errorMsg ? <div>{errorMsg}</div> : null}
+                  {errorMsg ? (
+                    <div className="text-red-600">{errorMsg}</div>
+                  ) : null}
                 </div>
               </form>
 
