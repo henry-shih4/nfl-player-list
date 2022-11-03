@@ -63,7 +63,6 @@ export default function Login() {
 
   return (
     <>
-      <Header />
       {isLoggedIn ? (
         <>
           <div>You are already logged in.</div>
@@ -77,12 +76,14 @@ export default function Login() {
         </>
       ) : (
         <>
-          <div className="flex justify-center items-center h-screen">
-            <div className="flex justify-between flex-col items-center h-[300px] w-[300px] bg-slate-100 rounded-lg">
+          <div className="flex flex-col justify-center items-center h-screen">
+            <Header />
+            <div className="flex justify-between flex-col items-center h-[340px] w-[340px] bg-slate-100 rounded-lg">
               <div className="p-2">Login Page</div>
               <form onSubmit={handleFormSubmit} className="flex flex-col">
-                <label for="user">Username: </label>
+                <label for="user">Username </label>
                 <input
+                  className="mt-1 mb-1"
                   type="text"
                   id="user"
                   placeholder="username"
@@ -91,8 +92,9 @@ export default function Login() {
                   }}
                   value={username}
                 />
-                <label for="password">Password: </label>
+                <label for="password">Password </label>
                 <input
+                  className="mt-1 mb-1"
                   type="password"
                   id="password"
                   placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
@@ -111,13 +113,15 @@ export default function Login() {
                 </div>
               </form>
 
-              <div className="flex flex-col">
+              <div className="flex">
+                <div className="p-2">Not a user?</div>
                 <button
+                  className="text-indigo-500 hover:underline duration-300"
                   onClick={() => {
                     navigate("/register");
                   }}
                 >
-                  Not a user? Register here
+                  Register here
                 </button>
               </div>
             </div>

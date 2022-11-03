@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginContext.js";
+import Header from "./Header.js";
 
 export default function Register() {
   const [isLoggedIn] = useContext(LoginContext);
@@ -62,12 +63,14 @@ export default function Register() {
         </>
       ) : (
         <>
-          <div className="flex justify-center items-center h-screen">
-            <div className="flex justify-between flex-col items-center h-[300px] w-[300px] bg-slate-100 rounded-lg">
+          <div className="flex flex-col justify-center items-center h-screen">
+            <Header />
+            <div className="flex justify-between flex-col items-center h-[340px] w-[340px] bg-slate-100 rounded-lg">
               <div className="p-2">Registration</div>
               <form onSubmit={handleFormSubmit} className="flex flex-col">
-                <label for="user">Username: </label>
+                <label for="user">Username </label>
                 <input
+                  className="mt-1 mb-1"
                   type="text"
                   id="user"
                   onChange={(e) => {
@@ -77,8 +80,9 @@ export default function Register() {
                   placeholder="username"
                 />
 
-                <label for="password">Password: </label>
+                <label for="password">Password </label>
                 <input
+                  className="mt-1 mb-1"
                   type="password"
                   id="password"
                   onChange={(e) => {
@@ -88,8 +92,9 @@ export default function Register() {
                   placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                 />
 
-                <label for="email">Email: </label>
+                <label for="email">Email </label>
                 <input
+                  className="mt-1 mb-1"
                   type="email"
                   id="email"
                   placeholder="example@gmail.com"
@@ -105,7 +110,15 @@ export default function Register() {
                 </div>
                 {msg ? <div className="text-center">{msg}</div> : null}
               </form>
-              <button onClick={() => navigate("/login")}>Login Page</button>
+              <div className="flex">
+                <div className="p-2">Already a user? </div>
+                <button
+                  className="text-indigo-500 hover:underline"
+                  onClick={() => navigate("/login")}
+                >
+                  Login Here
+                </button>
+              </div>
             </div>
           </div>
         </>

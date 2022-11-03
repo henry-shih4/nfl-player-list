@@ -31,12 +31,22 @@ export default function ShowPlayerList() {
       {isLoggedIn ? (
         <>
           {activeUser ? (
-            <div className="absolute top-0 left-0 w-[180px] text-white m-2">
-              Welcome, {activeUser}
+            <div className="flex justify-between items-center absolute top-0 left-0 text-white w-full bg-[#121420]">
+              <div className="ml-3">Welcome, {activeUser}!</div>
+              <button
+                className="p-2 m-2 rounded-md hover:bg-white hover:text-[#121420] text-white duration-500"
+                onClick={() => {
+                  cookies.remove("TOKEN", { path: "/" });
+                  changeLoggedIn(false);
+                  navigate("/login");
+                }}
+              >
+                Logout
+              </button>
             </div>
           ) : null}
           <div className="h-screen justify-center items-center">
-            <div className="bg-[#121420] flex justify-center items-center flex-col min-h-full">
+            <div className="bg-indigo-200 flex justify-center items-center flex-col min-h-full">
               <div className="m-2 flex justify-center items-center text-white">
                 Player List
               </div>
@@ -68,16 +78,6 @@ export default function ShowPlayerList() {
                 </button>
               </div>
               <div>
-                <button
-                  className="absolute top-1 right-3 border-white border-solid border-2 p-1 m-2 hover:bg-white hover:text-[#121420] text-white duration-500"
-                  onClick={() => {
-                    cookies.remove("TOKEN", { path: "/" });
-                    changeLoggedIn(false);
-                    navigate("/login");
-                  }}
-                >
-                  Logout
-                </button>
                 <button
                   className="text-white"
                   onClick={() => {
