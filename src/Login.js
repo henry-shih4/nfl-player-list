@@ -44,7 +44,7 @@ export default function Login() {
         if (response.data.message === "Login Successful") {
           cookies.set("TOKEN", response.data.token, {
             path: "/",
-            maxAge: 300,
+            maxAge: 600,
           });
           navigate("/");
           changeLoggedIn(true);

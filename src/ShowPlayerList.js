@@ -8,8 +8,7 @@ const cookies = new Cookies();
 export default function ShowPlayerList() {
   const [playerList, setPlayerList] = useState([]);
   const navigate = useNavigate();
-  const [isLoggedIn, changeLoggedIn, setCurrentUser, activeUser] =
-    useContext(LoginContext);
+  const [isLoggedIn, changeLoggedIn, , activeUser] = useContext(LoginContext);
   const token = cookies.get("TOKEN");
 
   useEffect(() => {

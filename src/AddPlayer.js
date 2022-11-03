@@ -24,7 +24,7 @@ export default function AddPlayer() {
     if (!isLoggedIn) {
       navigate("/login");
     }
-  }, []);
+  }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

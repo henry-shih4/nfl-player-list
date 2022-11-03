@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 

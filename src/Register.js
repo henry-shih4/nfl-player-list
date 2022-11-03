@@ -33,7 +33,7 @@ export default function Register() {
     axios
       .post(url, newUser)
       .then((response) => {
-        setMsg(response.request.statusText + " " + "new user");
+        setMsg(`${response.request.statusText} new user`);
         console.log(response);
         if (response.status === 201) {
           setUsername("");
