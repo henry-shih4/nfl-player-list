@@ -19,7 +19,7 @@ export default function Login() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setErrorMsg(null);
-    }, 3000);
+    }, 5000);
     return () => clearTimeout(timer);
   }, [errorMsg]);
 
@@ -107,6 +107,9 @@ export default function Login() {
                   <button className="bg-white text-indigo-600 m-3 w-[80px] border-2 border-solid border-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white duration-500 text-sm p-1">
                     Login
                   </button>
+                  <div className="text-xs">
+                    <p>username: newuser1</p> <p>password: newuser1</p>
+                  </div>
                   {errorMsg ? (
                     <div className="text-red-600">{errorMsg}</div>
                   ) : null}

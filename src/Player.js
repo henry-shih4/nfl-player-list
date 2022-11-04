@@ -132,7 +132,7 @@ export default function Player() {
                 Player Profile
               </div>
               <div className="flex justify-around items-center flex-wrap w-3/4">
-                <div className="flex justify-center items-center flex-col w-[300px] border border-solid border-indigo-500 rounded-lg">
+                <div className="flex justify-center items-center flex-col w-[300px] min-h-[400px] border border-solid border-indigo-500 rounded-lg">
                   {playerInfo ? (
                     <div className="">
                       {input ? (
@@ -249,7 +249,7 @@ export default function Player() {
                       Delete
                     </button>
                   </div>
-                  {errorMsg ? <div>{errorMsg}</div> : null}
+                  {errorMsg ? <div>{errorMsg}, admin only</div> : null}
                   <button
                     className="bg-white text-slate-400 m-3 w-[120px] border border-solid border-slate-500 rounded-md hover:bg-slate-500 hover:text-white duration-500 text-sm p-1"
                     onClick={() => {
@@ -259,12 +259,12 @@ export default function Player() {
                     Back to playerlist
                   </button>
                 </div>
-                <div className="flex flex-wrap justify-center pt-4">
+                <div className="flex flex-wrap justify-center">
                   {playerImage ? (
-                    <div className="h-[400px] w-[300px] flex justify-center ">
+                    <div className="mt-2 mb-2 h-[400px] w-[300px] flex justify-center items-center">
                       <img
                         alt={`${playerInfo.name}`}
-                        className="max-h-[400px] m-3 rounded-xl"
+                        className="h-[400px] rounded-xl"
                         src={playerImage}
                       />
                     </div>
@@ -272,9 +272,12 @@ export default function Player() {
                 </div>
                 <div>
                   {playerBio ? (
-                    <div className="w-[300px] flex justify-center items-center p-3 bg-slate-100">
-                      {playerBio}
-                    </div>
+                    <>
+                      <div className="rounded-xl w-[300px] h-[400px] flex flex-col justify-center items-center p-3 bg-slate-100">
+                        <div className="p-2">About</div>
+                        <div>{playerBio}</div>
+                      </div>
+                    </>
                   ) : null}
                 </div>
               </div>

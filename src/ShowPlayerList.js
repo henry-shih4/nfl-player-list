@@ -31,7 +31,7 @@ export default function ShowPlayerList() {
       {isLoggedIn ? (
         <>
           {activeUser ? (
-            <div className="flex justify-between items-center absolute top-0 left-0 text-white w-full bg-[#121420]">
+            <div className="flex justify-between items-center text-white w-full bg-[#121420]">
               <div className="ml-3">Welcome, {activeUser}!</div>
               <button
                 className="p-2 m-2 rounded-md hover:bg-white hover:text-[#121420] text-white duration-500"
@@ -46,11 +46,11 @@ export default function ShowPlayerList() {
             </div>
           ) : null}
           <div className="h-screen justify-center items-center">
-            <div className="bg-indigo-200 flex justify-center items-center flex-col min-h-full">
-              <div className="m-2 flex justify-center items-center text-white">
-                Player List
+            <div className="bg-[#E0F2FE] flex justify-start items-center flex-col min-h-full pt-5">
+              <div className="text-3xl m-2 flex justify-center items-center text-indigo-700">
+                Our NFL Players
               </div>
-              <div className="flex flex-wrap justify-center">
+              <div className="flex flex-wrap justify-center w-3/4">
                 {playerList
                   ? playerList.map((player) => {
                       return (
@@ -59,7 +59,7 @@ export default function ShowPlayerList() {
                           onClick={() => {
                             navigate(`/player/${player._id}`);
                           }}
-                          className="h-[100px] w-[100px] bg-white m-2 p-1 flex justify-center items-center text-center rounded-full"
+                          className="h-[100px] w-[100px] bg-white m-2 p-1 flex justify-center items-center text-center rounded-full border border-solid border-slate-400 hover:scale-110 duration-300"
                         >
                           {player.name}
                         </div>
@@ -69,7 +69,7 @@ export default function ShowPlayerList() {
               </div>
               <div className="flex justify-center">
                 <button
-                  className="text-white flex justify-center w-[100px]"
+                  className="bg-white text-indigo-600 mt-3 w-[100px] border-2 border-solid border-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white duration-500 text-sm p-1"
                   onClick={() => {
                     navigate("/add-player");
                   }}
@@ -79,12 +79,12 @@ export default function ShowPlayerList() {
               </div>
               <div>
                 <button
-                  className="text-white"
+                  className="bg-white text-indigo-600 mt-3 w-[100px] border-2 border-solid border-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white duration-500 text-sm p-1"
                   onClick={() => {
                     navigate("/admin");
                   }}
                 >
-                  Admin Only
+                  Admin Page
                 </button>
               </div>
             </div>
