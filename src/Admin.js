@@ -29,7 +29,7 @@ export default function Admin() {
         }
         console.log(error.message);
       });
-  }, []);
+  }, [token]);
 
   return (
     <>
