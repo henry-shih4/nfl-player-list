@@ -46,9 +46,9 @@ export default function ShowPlayerList() {
             </div>
           ) : null}
           <div className="h-screen justify-center items-center">
-            <div className="bg-[#E0F2FE] flex justify-start items-center flex-col min-h-full pt-5">
+            <div className="bg-slate-200 flex justify-start items-center flex-col min-h-full pt-5">
               <div className="text-3xl m-2 flex justify-center items-center text-indigo-700">
-                Our NFL Players
+                Our Partnered NFL Players
               </div>
               <div className="flex flex-wrap justify-center w-3/4">
                 {playerList
@@ -59,7 +59,7 @@ export default function ShowPlayerList() {
                           onClick={() => {
                             navigate(`/player/${player._id}`);
                           }}
-                          className="h-[100px] w-[100px] bg-white m-2 p-1 flex justify-center items-center text-center rounded-full border border-solid border-slate-400 hover:scale-110 duration-300"
+                          className="h-[120px] w-[120px] bg-indigo-200 m-2 p-2 flex justify-center items-center text-center rounded-lg border border-solid border-slate-400 hover:scale-110 duration-300"
                         >
                           {player.name}
                         </div>

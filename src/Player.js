@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import Header from "./Header.js";
 import Cookies from "universal-cookie";
 import { LoginContext } from "./LoginContext.js";
 const cookies = new Cookies();
@@ -126,12 +127,13 @@ export default function Player() {
     <>
       {isLoggedIn ? (
         <>
-          <div className="p-4">
+          <div className>
             <div className="flex flex-col justify-center items-center min-h-screen">
-              <div className="flex justify-center items-center text-3xl p-2">
+              <Header />
+              <div className="text-3xl p-2 h-[80px] underline text-indigo-400">
                 Player Profile
               </div>
-              <div className="flex justify-around items-center flex-wrap w-3/4">
+              <div className="flex justify-center items-center flex-wrap w-3/4">
                 <div className="flex justify-center items-center flex-col w-[300px] min-h-[400px] border border-solid border-indigo-500 rounded-lg">
                   {playerInfo ? (
                     <div className="">
@@ -141,7 +143,7 @@ export default function Player() {
                             <div className="flex flex-col">
                               <label>Name: </label>
                               <input
-                                className="border-2 border-black border-solid w-max"
+                                className="pl-1 border border-black border-solid w-max"
                                 value={tempPlayer.name}
                                 onChange={(e) => {
                                   setTempPlayer({
@@ -157,7 +159,7 @@ export default function Player() {
                                 Position:{" "}
                               </label>
                               <input
-                                className="border-2 border-black border-solid w-max"
+                                className="pl-1 border border-black border-solid w-max"
                                 value={tempPlayer.position}
                                 onChange={(e) => {
                                   setTempPlayer({
@@ -171,7 +173,7 @@ export default function Player() {
                             <div>
                               <label className="flex flex-col">Team: </label>
                               <input
-                                className="border-2 border-black border-solid w-max"
+                                className="pl-1 border border-black border-solid w-max"
                                 value={tempPlayer.team}
                                 onChange={(e) => {
                                   setTempPlayer({
@@ -185,7 +187,7 @@ export default function Player() {
                             <div>
                               <label className="flex flex-col">Age: </label>
                               <input
-                                className="border-2 border-black border-solid w-max"
+                                className="pl-1 border border-black border-solid w-max"
                                 value={tempPlayer.age}
                                 onChange={(e) => {
                                   setTempPlayer({
@@ -217,15 +219,23 @@ export default function Player() {
                         <>
                           <div className="m-3 text-md justify-center items-center text-center p-4">
                             <div className="m-1 p-2">
-                              Name: {playerInfo.name}
+                              Name:
+                              <div className="font-bold">{playerInfo.name}</div>
                             </div>
                             <div className="m-1 p-2">
-                              Position: {playerInfo.position}
+                              Position:
+                              <div className="font-bold">
+                                {playerInfo.position}
+                              </div>
                             </div>
                             <div className="m-1 p-2">
-                              Team: {playerInfo.team}
+                              Team:
+                              <div className="font-bold">{playerInfo.team}</div>
                             </div>
-                            <div className="m-1 p-2">Age: {playerInfo.age}</div>
+                            <div className="m-1 p-2">
+                              Age:
+                              <div className="font-bold">{playerInfo.age}</div>
+                            </div>
                           </div>
                         </>
                       )}
@@ -250,21 +260,13 @@ export default function Player() {
                     </button>
                   </div>
                   {errorMsg ? <div>{errorMsg}, admin only</div> : null}
-                  <button
-                    className="bg-white text-slate-400 m-3 w-[120px] border border-solid border-slate-500 rounded-md hover:bg-slate-500 hover:text-white duration-500 text-sm p-1"
-                    onClick={() => {
-                      navigate("/");
-                    }}
-                  >
-                    Back to playerlist
-                  </button>
                 </div>
                 <div className="flex flex-wrap justify-center">
                   {playerImage ? (
-                    <div className="mt-2 mb-2 h-[400px] w-[300px] flex justify-center items-center">
+                    <div className="m-4 h-[400px] w-[300px] flex justify-center items-center">
                       <img
                         alt={`${playerInfo.name}`}
-                        className="h-[400px] rounded-xl"
+                        className="h-[400px] rounded-xl "
                         src={playerImage}
                       />
                     </div>
@@ -273,14 +275,26 @@ export default function Player() {
                 <div>
                   {playerBio ? (
                     <>
-                      <div className="rounded-xl w-[300px] h-[400px] flex flex-col justify-center items-center p-3 bg-slate-100">
-                        <div className="p-2">About</div>
-                        <div>{playerBio}</div>
+                      <div className="text-sm rounded-xl w-[300px] min-h-[400px] flex flex-col justify-center items-center p-3 bg-slate-100 border border-solid border-indigo-500">
+                        <div>
+                          <div className="p-2 flex justify-center items-center">
+                            About
+                          </div>
+                          <div className="text-center">{playerBio}</div>
+                        </div>
                       </div>
                     </>
                   ) : null}
                 </div>
               </div>
+              <button
+                className="bg-white text-slate-400 m-3 w-[120px] border border-solid border-slate-500 rounded-md hover:bg-slate-500 hover:text-white duration-500 text-sm p-1"
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Back to playerlist
+              </button>
             </div>
           </div>
         </>
