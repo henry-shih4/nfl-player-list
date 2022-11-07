@@ -50,32 +50,33 @@ export default function Player() {
         `https://en.wikipedia.org/api/rest_v1/page/summary/${playerInfo.name}`
       )
       .then((response) => {
-        console.log(response);
         if (response.data.type === "disambiguation") {
-          disambiguationFetch();
+          disambiguationFetch(playerInfo.position);
+        } else {
+          setPlayerBio(response.data.extract);
+          setPlayerImage(response.data.originalimage.source);
         }
-        setPlayerBio(response.data.extract);
-        setPlayerImage(response.data.originalimage.source);
       })
       .catch((error) => {
         console.log(error);
       });
 
-    function disambiguationFetch() {
-      axios
-        .get(
-          `https://en.wikipedia.org/api/rest_v1/page/summary/${
-            playerInfo.name
-          } (${playerInfo.position.toLowerCase()})`
-        )
-        .then((response) => {
-          console.log(response);
-          setPlayerBio(response.data.extract);
-          setPlayerImage(response.data.originalimage.source);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    function disambiguationFetch(position) {
+      if (position) {
+        axios
+          .get(
+            `https://en.wikipedia.org/api/rest_v1/page/summary/${
+              playerInfo.name
+            } (${position.toLowerCase()})`
+          )
+          .then((response) => {
+            setPlayerBio(response.data.extract);
+            setPlayerImage(response.data.originalimage.source);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     }
   }, [playerInfo.name, playerInfo.position]);
 
@@ -137,7 +138,7 @@ export default function Player() {
                     <div className="">
                       {input ? (
                         <>
-                          <div className="flex flex-col p-2  flex items-center">
+                          <div className="flex flex-col p-2 items-center">
                             <div className="flex flex-col">
                               <label>Name: </label>
                               <input
