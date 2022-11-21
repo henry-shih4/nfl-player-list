@@ -108,7 +108,8 @@ export default function Login() {
                     Login
                   </button>
                   <div className="text-xs">
-                    <p>username: newuser1</p> <p>password: newuser1</p>
+                    <p>test the website using</p>
+                    <p>username: admin1</p> <p>password: admin1</p>
                   </div>
                   {errorMsg ? (
                     <div className="text-red-600">{errorMsg}</div>
