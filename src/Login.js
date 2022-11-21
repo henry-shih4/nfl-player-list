@@ -48,7 +48,7 @@ export default function Login() {
           });
           navigate("/");
           changeLoggedIn(true);
-          setCurrentUser(response.data.username);
+          // setCurrentUser(response.data.username);
         } else {
           navigate("/login");
         }

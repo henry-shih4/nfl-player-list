@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
@@ -7,7 +7,23 @@ const LoginContext = createContext();
 function LoginProvider(props) {
   const token = cookies.get("TOKEN");
   const [isLoggedIn, setIsLoggedIn] = useState(token ? true : false);
-  const [activeUser, setActiveUser] = useState("no active user");
+  const [activeUser, setActiveUser] = useState();
+
+  useEffect(() => {
+    if (token) {
+      const user = parseJwt(token);
+      setActiveUser(user.username);
+    }
+  }, [token]);
+
+  function parseJwt(token) {
+    if (!token) {
+      return;
+    }
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace("-", "+").replace("_", "/");
+    return JSON.parse(window.atob(base64));
+  }
 
   function setCurrentUser(user) {
     if (user) {
