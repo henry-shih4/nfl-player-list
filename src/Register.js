@@ -66,7 +66,7 @@ export default function Register() {
           <div className="flex flex-col justify-center items-center h-screen">
             <Header />
             <div className="flex justify-between flex-col items-center h-[340px] w-[340px] bg-slate-100 rounded-lg">
-              <div className="p-2">Registration</div>
+              <div className="p-2">Register</div>
               <form onSubmit={handleFormSubmit} className="flex flex-col">
                 <label for="user">Username </label>
                 <input

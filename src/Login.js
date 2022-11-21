@@ -79,7 +79,7 @@ export default function Login() {
           <div className="flex flex-col justify-center items-center h-screen">
             <Header />
             <div className="flex justify-between flex-col items-center h-[340px] w-[340px] bg-slate-100 rounded-lg">
-              <div className="p-2">Login Page</div>
+              <div className="p-2">Login</div>
               <form onSubmit={handleFormSubmit} className="flex flex-col">
                 <label for="user">Username </label>
                 <input
