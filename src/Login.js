@@ -12,7 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState();
   const [user, setUser] = useState();
   const [errorMsg, setErrorMsg] = useState();
-  const [isLoggedIn, changeLoggedIn, setCurrentUser] = useContext(LoginContext);
+  const [isLoggedIn, changeLoggedIn, ,] = useContext(LoginContext);
   const url = "https://nfl-players-server.herokuapp.com/users/login";
   const token = cookies.get("TOKEN");
 
@@ -48,7 +48,6 @@ export default function Login() {
           });
           navigate("/");
           changeLoggedIn(true);
-          // setCurrentUser(response.data.username);
         } else {
           navigate("/login");
         }
