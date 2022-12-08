@@ -13,7 +13,7 @@ export default function ShowPlayerList() {
 
   useEffect(() => {
     axios
-      .get("https://nfl-players-server.herokuapp.com/api/players", {
+      .get("https://nfl-app.adaptable.app/api/players", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {

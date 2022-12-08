@@ -13,7 +13,7 @@ export default function Login() {
   const [user, setUser] = useState();
   const [errorMsg, setErrorMsg] = useState();
   const [isLoggedIn, changeLoggedIn, ,] = useContext(LoginContext);
-  const url = "https://nfl-players-server.herokuapp.com/users/login";
+  const url = "https://nfl-app.adaptable.app/users/login";
   const token = cookies.get("TOKEN");
 
   useEffect(() => {

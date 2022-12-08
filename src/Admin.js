@@ -6,7 +6,7 @@ const cookies = new Cookies();
 
 export default function Admin() {
   const token = cookies.get("TOKEN");
-  const url = "https://nfl-players-server.herokuapp.com/users/admin";
+  const url = "https://nfl-app.adaptable.app/users/admin";
   const [adminInfo, setAdminInfo] = useState();
   const [errorMsg, setErrorMsg] = useState();
   const navigate = useNavigate();

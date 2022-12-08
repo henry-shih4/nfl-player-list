@@ -12,7 +12,7 @@ export default function Register() {
   const [newUser, setNewUser] = useState();
   const [msg, setMsg] = useState();
   const navigate = useNavigate();
-  const url = "https://nfl-players-server.herokuapp.com/users/";
+  const url = "https://nfl-app.adaptable.app/users/";
 
   useEffect(() => {
     const timer = setTimeout(() => {

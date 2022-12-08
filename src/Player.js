@@ -7,7 +7,7 @@ import { LoginContext } from "./LoginContext.js";
 const cookies = new Cookies();
 
 export default function Player() {
-  const url = "https://nfl-players-server.herokuapp.com/api/players/";
+  const url = "https://nfl-app.adaptable.app/api/players/";
   const params = useParams();
   const [playerInfo, setPlayerInfo] = useState([]);
   const navigate = useNavigate();

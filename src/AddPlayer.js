@@ -6,7 +6,7 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 export default function AddPlayer() {
-  const url = "https://nfl-players-server.herokuapp.com/api/players/";
+  const url = "https://nfl-app.adaptable.app/api/players/";
   const [newPlayerName, setNewPlayerName] = useState();
   const [newPlayerPosition, setNewPlayerPosition] = useState();
   const [newPlayerTeam, setNewPlayerTeam] = useState();
