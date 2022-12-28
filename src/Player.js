@@ -273,6 +273,7 @@ export default function Player() {
                             }}
                           >
                             <img
+                              alt="close-button"
                               className="hover:scale-105 hover:cursor-pointer"
                               src="/close.svg"
                             />
