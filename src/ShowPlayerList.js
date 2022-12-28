@@ -48,7 +48,7 @@ export default function ShowPlayerList() {
           <div className="h-screen justify-center items-center">
             <div className="bg-slate-200 flex justify-start items-center flex-col min-h-full pt-5">
               <div className="text-3xl m-2 flex justify-center items-center text-indigo-700">
-                Our Partnered NFL Players
+                NFL Playerbook
               </div>
               <div className="flex flex-wrap justify-center w-3/4">
                 {playerList
